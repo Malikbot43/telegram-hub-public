@@ -1,6 +1,7 @@
 import { createClient } from '../lib/supabase-server'
 import LinkList from './LinkList'
 import UpdatesPanel from './UpdatesPanel'
+import SignOutButton from './SignOutButton'
 
 export default async function HomePage() {
   const supabase = createClient()
@@ -36,9 +37,12 @@ export default async function HomePage() {
           </nav>
 
           {user ? (
-            <span className="text-sm text-gray-600">
-              {user.user_metadata?.full_name || user.user_metadata?.name || user.email}
-            </span>
+            <div className="flex items-center gap-3">
+              <span className="text-sm text-gray-600">
+                {user.user_metadata?.full_name || user.user_metadata?.name || user.email}
+              </span>
+              <SignOutButton />
+            </div>
           ) : (
             <a
               href="/login"
@@ -72,5 +76,5 @@ export default async function HomePage() {
       </main>
     </>
   )
-    }
-    
+          }
+          
