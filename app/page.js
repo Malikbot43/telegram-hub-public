@@ -19,7 +19,9 @@ export default async function HomePage() {
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 }}>
         <h1 style={{ fontSize: 24 }}>📡 Telegram Hub</h1>
         {user ? (
-          <span style={{ fontSize: 14, opacity: 0.8 }}>Signed in as {user.email || user.phone}</span>
+          <span style={{ fontSize: 14, opacity: 0.8 }}>
+            Signed in as {user.user_metadata?.username || 'user'}
+          </span>
         ) : (
           <a href="/login" style={{ color: '#5aa9ff', textDecoration: 'none', fontSize: 14 }}>
             Sign in
