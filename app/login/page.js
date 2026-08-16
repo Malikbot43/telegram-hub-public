@@ -13,18 +13,25 @@ export default function LoginPage() {
   }
 
   return (
-    <main style={{ maxWidth: 360, margin: '80px auto', padding: '0 16px', fontFamily: 'system-ui, sans-serif', textAlign: 'center' }}>
-      <h1 style={{ fontSize: 22, marginBottom: 24 }}>Sign in</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="bg-white w-full max-w-sm p-8 rounded-xl shadow-sm border border-gray-100 text-center">
+        <div className="flex items-center justify-center space-x-2 mb-6">
+          <i className="fa-solid fa-satellite-dish text-indigo-600 text-2xl"></i>
+          <span className="text-xl font-bold tracking-wide">
+            Telegram<span className="text-indigo-600">Hub</span>
+          </span>
+        </div>
 
-      <button
-        onClick={signInWithGoogle}
-        style={{
-          width: '100%', padding: 12, borderRadius: 8, border: '1px solid #444',
-          background: '#fff', color: '#111', fontWeight: 600, cursor: 'pointer',
-        }}
-      >
-        Continue with Google
-      </button>
-    </main>
+        <h1 className="text-xl font-bold mb-6">Sign in</h1>
+
+        <button
+          onClick={signInWithGoogle}
+          className="w-full flex items-center justify-center gap-2 border border-gray-200 py-3 rounded-lg font-medium hover:bg-gray-50 transition"
+        >
+          <i className="fa-brands fa-google text-red-500"></i>
+          Continue with Google
+        </button>
+      </div>
+    </div>
   )
-}
+            }
