@@ -6,9 +6,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body style={{ margin: 0, fontFamily: 'system-ui, sans-serif', background: '#f5f6fb', color: '#1a1a2e' }}>
-        {children}
-      </body>
+      <head>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+      </head>
+      <body className="bg-gray-50 text-gray-800 font-sans">{children}</body>
     </html>
   )
 }
