@@ -15,15 +15,39 @@ export default async function HomePage() {
   } = await supabase.auth.getUser()
 
   return (
-    <main style={{ maxWidth: 800, margin: '0 auto', padding: '32px 16px' }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 }}>
-        <h1 style={{ fontSize: 24 }}>📡 Telegram Hub</h1>
+    <main style={{ maxWidth: 800, margin: '0 auto', padding: '0 16px 40px' }}>
+      <header
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '20px 0',
+          marginBottom: 28,
+        }}
+      >
+        <h1 style={{ fontSize: 24, margin: 0 }}>
+          📡 <span style={{ color: '#1a1a2e' }}>Telegram</span>
+          <span style={{ color: '#4f46e5' }}>Hub</span>
+        </h1>
+
         {user ? (
-          <span style={{ fontSize: 14, opacity: 0.8 }}>
-            Signed in as {user.user_metadata?.username || 'user'}
+          <span style={{ fontSize: 14, opacity: 0.7 }}>
+            {user.user_metadata?.full_name || user.user_metadata?.name || user.email}
           </span>
         ) : (
-          <a href="/login" style={{ color: '#5aa9ff', textDecoration: 'none', fontSize: 14 }}>
+          <a
+            href="/login"
+            style={{
+              display: 'inline-block',
+              background: '#4f46e5',
+              color: '#fff',
+              textDecoration: 'none',
+              fontWeight: 600,
+              fontSize: 14,
+              padding: '10px 18px',
+              borderRadius: 999,
+            }}
+          >
             Sign in
           </a>
         )}
@@ -32,4 +56,5 @@ export default async function HomePage() {
       <LinkList initialLinks={links || []} />
     </main>
   )
-}
+            }
+              
