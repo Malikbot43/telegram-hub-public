@@ -22,77 +22,37 @@ export default function LinkList({ initialLinks }) {
         placeholder="Search groups & channels..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        style={{
-          width: '100%',
-          padding: '12px 16px',
-          borderRadius: 10,
-          border: '1px solid #e2e2ec',
-          background: '#fff',
-          color: '#1a1a2e',
-          marginBottom: 24,
-          boxSizing: 'border-box',
-          fontSize: 14,
-        }}
+        className="w-full px-4 py-3 rounded-lg border border-gray-200 mb-6 text-sm focus:ring-indigo-500 focus:border-indigo-500 outline-none"
       />
 
+      <h2 className="text-xl font-bold border-b pb-2 mb-4">
+        <i className="fa-solid fa-compass text-indigo-600 mr-2"></i>
+        Active Community Links
+      </h2>
+
       {filtered.length === 0 && (
-        <p style={{ opacity: 0.5, textAlign: 'center', marginTop: 40 }}>No links found.</p>
+        <p className="text-gray-400 text-center mt-10">No links found.</p>
       )}
 
-      <div style={{ display: 'grid', gap: 14 }}>
+      <div className="space-y-4">
         {filtered.map((link) => (
           <div
             key={link.id}
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              gap: 16,
-              padding: '20px',
-              borderRadius: 14,
-              background: '#fff',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
-            }}
+            className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-start justify-between hover:shadow-md transition"
           >
-            <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
-              <div
-                style={{
-                  width: 44,
-                  height: 44,
-                  flexShrink: 0,
-                  borderRadius: 10,
-                  background: '#e8ecff',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 20,
-                }}
-              >
-                📡
+            <div className="flex items-start space-x-4">
+              <div className="bg-blue-100 text-blue-600 p-3 rounded-lg text-2xl">
+                <i className="fa-brands fa-telegram"></i>
               </div>
-
               <div>
                 {link.category && (
-                  <span
-                    style={{
-                      display: 'inline-block',
-                      fontSize: 11,
-                      fontWeight: 600,
-                      color: '#4f46e5',
-                      background: '#eef0ff',
-                      padding: '3px 10px',
-                      borderRadius: 999,
-                      marginBottom: 6,
-                    }}
-                  >
+                  <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-semibold">
                     {link.category}
                   </span>
                 )}
-                <h3 style={{ margin: '2px 0 4px', fontSize: 17 }}>{link.title}</h3>
+                <h3 className="text-lg font-bold mt-1">{link.title}</h3>
                 {link.description && (
-                  <p style={{ margin: 0, fontSize: 13.5, color: '#6b6b80', maxWidth: 420 }}>
-                    {link.description}
-                  </p>
+                  <p className="text-gray-600 text-sm mt-1">{link.description}</p>
                 )}
               </div>
             </div>
@@ -101,16 +61,7 @@ export default function LinkList({ initialLinks }) {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                flexShrink: 0,
-                background: '#2563eb',
-                color: '#fff',
-                textDecoration: 'none',
-                fontWeight: 600,
-                fontSize: 13.5,
-                padding: '9px 18px',
-                borderRadius: 8,
-              }}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 self-center whitespace-nowrap"
             >
               Join
             </a>
@@ -119,4 +70,4 @@ export default function LinkList({ initialLinks }) {
       </div>
     </div>
   )
-}
+              }
