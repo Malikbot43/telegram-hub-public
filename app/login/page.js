@@ -1,3 +1,8 @@
+bash
+
+cat /home/claude/telegram-hub/public-site/app/login/page.js
+Output
+
 'use client'
 
 import { useState } from 'react'
@@ -121,4 +126,52 @@ function tabStyle(active) {
     background: active ? '#132133' : 'transparent',
     color: '#fff',
   }
-            }
+}
+Done
+That's fine — the code block I gave you above is the correct, complete replacement. In your GitHub repo, open app/login/page.js, tap edit, select all and delete, then paste in the code block from my previous message (the one starting with 'use client' and const AUTH_EMAIL_DOMAIN = ...). Commit it.
+
+4. Update app/page.js so it shows the username instead of an email — replace it with this:
+
+
+Ran a command
+Ran a command
+jsx
+import { createClient } from '../lib/supabase-server'
+import LinkList from './LinkList'
+
+export default async function HomePage() {
+  const supabase = createClient()
+
+  const { data: links } = await supabase
+    .from('telegram_links')
+    .select('*')
+    .eq('is_published', true)
+    .order('created_at', { ascending: false })
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  return (
+    <main style={{ maxWidth: 800, margin: '0 auto', padding: '32px 16px' }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 }}>
+        <h1 style={{ fontSize: 24 }}>📡 Telegram Hub</h1>
+        {user ? (
+          <span style={{ fontSize: 14, opacity: 0.8 }}>
+            Signed in as {user.user_metadata?.username || 'user'}
+          </span>
+        ) : (
+          <a href="/login" style={{ color: '#5aa9ff', textDecoration: 'none', fontSize: 14 }}>
+            Sign in
+          </a>
+        )}
+      </header>
+
+      <LinkList initialLinks={links || []} />
+    </main>
+  )
+}
+Order to do this in: (1) turn off email confirmation in Supabase, (2) run the SQL, (3) replace app/login/page.js, (4) replace app/page.js, then let Vercel redeploy. Try signing up with a username and password on the live site and tell me what happens.
+
+
+        
