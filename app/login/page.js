@@ -1,37 +1,60 @@
-'use client'
+import { createClient } from '../lib/supabase-server'
+import LinkList from './LinkList'
 
-import { createClient } from '../../lib/supabase-browser'
-
-export default function LoginPage() {
+export default async function HomePage() {
   const supabase = createClient()
 
-  async function signInWithGoogle() {
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: `${location.origin}/auth/callback` },
-    })
-  }
+  const { data: links } = await supabase
+    .from('telegram_links')
+    .select('*')
+    .eq('is_published', true)
+    .order('created_at', { ascending: false })
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="bg-white w-full max-w-sm p-8 rounded-xl shadow-sm border border-gray-100 text-center">
-        <div className="flex items-center justify-center space-x-2 mb-6">
-          <i className="fa-solid fa-satellite-dish text-indigo-600 text-2xl"></i>
-          <span className="text-xl font-bold tracking-wide">
-            Telegram<span className="text-indigo-600">Hub</span>
+    <main style={{ maxWidth: 800, margin: '0 auto', padding: '0 16px 40px' }}>
+      <header
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '20px 0',
+          marginBottom: 28,
+        }}
+      >
+        <h1 style={{ fontSize: 24, margin: 0 }}>
+          📡 <span style={{ color: '#1a1a2e' }}>Telegram</span>
+          <span style={{ color: '#4f46e5' }}>Hub</span>
+        </h1>
+
+        {user ? (
+          <span style={{ fontSize: 14, opacity: 0.7 }}>
+            {user.user_metadata?.full_name || user.user_metadata?.name || user.email}
           </span>
-        </div>
+        ) : (
+          <a
+            href="/login"
+            style={{
+              display: 'inline-block',
+              background: '#4f46e5',
+              color: '#fff',
+              textDecoration: 'none',
+              fontWeight: 600,
+              fontSize: 14,
+              padding: '10px 18px',
+              borderRadius: 999,
+            }}
+          >
+            Sign in
+          </a>
+        )}
+      </header>
 
-        <h1 className="text-xl font-bold mb-6">Sign in</h1>
-
-        <button
-          onClick={signInWithGoogle}
-          className="w-full flex items-center justify-center gap-2 border border-gray-200 py-3 rounded-lg font-medium hover:bg-gray-50 transition"
-        >
-          <i className="fa-brands fa-google text-red-500"></i>
-          Continue with Google
-        </button>
-      </div>
-    </div>
+      <LinkList initialLinks={links || []} />
+    </main>
   )
             }
+            
